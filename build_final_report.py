@@ -40,7 +40,7 @@ im2.save(im2_out)
 print("Page 1 and Page 2 images prepared.")
 
 # -------------------------------------------------------------
-# Step 2: Prepare Body HTML for Pages 3 through 9 (Black & White Formal Academic Style)
+# Step 2: Prepare Body HTML for Pages 3 through 9 (Full-Bleed Academic Print Layout)
 # -------------------------------------------------------------
 def get_base64_img(path):
     if not os.path.exists(path):
@@ -74,8 +74,8 @@ html_body = f"""<!DOCTYPE html>
     body {{
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       color: #000000;
-      line-height: 1.45;
-      font-size: 9.5pt;
+      line-height: 1.55;
+      font-size: 11pt;
       margin: 0;
       padding: 0;
     }}
@@ -103,63 +103,61 @@ html_body = f"""<!DOCTYPE html>
     .page-footer {{
       text-align: center;
       padding-top: 6px;
-      margin-top: 10px;
-      font-size: 9pt;
+      margin-top: 8px;
+      font-size: 10pt;
       color: #000000;
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
     }}
 
     h2.section-heading {{
-      font-size: 13pt;
+      font-size: 15pt;
       font-weight: 700;
       color: #000000;
       border-bottom: none;
-      padding-bottom: 0px;
       margin-top: 14px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }}
 
     h3.subsection-heading {{
-      font-size: 10.5pt;
+      font-size: 12.5pt;
       font-weight: 700;
       color: #000000;
-      margin-top: 8px;
-      margin-bottom: 4px;
+      margin-top: 14px;
+      margin-bottom: 6px;
     }}
 
     p {{
       margin-top: 0;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       text-align: justify;
       color: #000000;
     }}
 
     ul, ol {{
-      margin-top: 2px;
-      margin-bottom: 6px;
-      padding-left: 20px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      padding-left: 24px;
       color: #000000;
     }}
 
     li {{
-      margin-bottom: 3px;
+      margin-bottom: 6px;
     }}
 
     table.data-table {{
       width: 100%;
       border-collapse: collapse;
-      margin: 8px 0 10px 0;
-      font-size: 9pt;
+      margin: 10px 0 12px 0;
+      font-size: 10pt;
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       border: 1px solid #000000;
     }}
 
     table.data-table th, table.data-table td {{
       border: 1px solid #000000;
-      padding: 5px 8px;
+      padding: 6.5px 9px;
       text-align: left;
       color: #000000;
-      font-family: Calibri, 'Segoe UI', Arial, sans-serif;
     }}
 
     table.data-table th {{
@@ -169,10 +167,6 @@ html_body = f"""<!DOCTYPE html>
       text-align: center;
     }}
 
-    table.data-table td {{
-      background-color: #ffffff;
-    }}
-
     table.data-table tr:nth-child(even) td {{
       background-color: #fafafa;
     }}
@@ -180,26 +174,27 @@ html_body = f"""<!DOCTYPE html>
     .callout {{
       background: #ffffff;
       border: 1px solid #000000;
-      padding: 8px 12px;
+      padding: 12px 14px;
       border-radius: 2px;
-      margin: 7px 0;
-      font-size: 9pt;
+      margin: 10px 0;
+      font-size: 10.5pt;
       color: #000000;
+      line-height: 1.5;
     }}
 
     .formula-normal {{
       text-align: center;
-      font-size: 10pt;
+      font-size: 12pt;
       font-weight: 700;
       color: #000000;
-      margin: 8px 0;
+      margin: 12px 0;
       padding: 4px 0;
       font-family: 'Cambria Math', 'Times New Roman', Calibri, serif;
     }}
 
     .figure-container {{
       text-align: center;
-      margin: 8px 0;
+      margin: 10px 0;
     }}
 
     .figure-container img {{
@@ -210,9 +205,9 @@ html_body = f"""<!DOCTYPE html>
     }}
 
     .figure-caption {{
-      font-size: 8.5pt;
+      font-size: 9pt;
       color: #000000;
-      margin-top: 4px;
+      margin-top: 5px;
       font-weight: 600;
     }}
 
@@ -220,22 +215,19 @@ html_body = f"""<!DOCTYPE html>
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       font-weight: 700;
       color: #000000;
-      background: none;
-      border: none;
-      padding: 0;
     }}
 
     .code-block {{
       background: #ffffff;
       border: 1px solid #000000;
       color: #000000;
-      padding: 10px;
+      padding: 11px;
       border-radius: 2px;
       font-family: 'Consolas', 'Courier New', monospace;
-      font-size: 8pt;
-      line-height: 1.4;
+      font-size: 8.5pt;
+      line-height: 1.45;
       overflow-x: auto;
-      margin: 6px 0;
+      margin: 8px 0;
     }}
   </style>
 </head>
@@ -244,7 +236,7 @@ html_body = f"""<!DOCTYPE html>
   <!-- ================= PAGE 3: SECTIONS 1 & 2 ================= -->
   <div class="report-page">
     <div class="page-content">
-      <h2 class="section-heading">1. Problem Statement</h2>
+      <h2 class="section-heading" style="margin-top: 4px;">1. Problem Statement</h2>
       <p>
         In traditional feedforward neural networks, information moves strictly from one layer to the very next layer (layer <code>i &rarr; i + 1</code>). Modern state-of-the-art Deep Learning models—such as <strong>ResNet</strong>, <strong>DenseNet</strong>, and <strong>Transformers</strong>—introduce forward "skip connections" (or shortcuts). These connections allow signals and gradients to bypass one or more intermediate layers.
       </p>
@@ -265,7 +257,7 @@ html_body = f"""<!DOCTYPE html>
         <li><strong>Integer Overflow:</strong> Standard 64-bit IEEE floating-point numbers overflow at depth <code>n = 78</code>, causing precision breakdown.</li>
       </ul>
 
-      <h2 class="section-heading" style="margin-top: 18px;">2. Objectives</h2>
+      <h2 class="section-heading" style="margin-top: 16px;">2. Objectives</h2>
       <p>
         To solve this computational and mathematical challenge, the project establishes five concrete objectives:
       </p>
@@ -296,7 +288,7 @@ html_body = f"""<!DOCTYPE html>
   <!-- ================= PAGE 4: SECTION 3 (MOTIVATION) ================= -->
   <div class="report-page">
     <div class="page-content">
-      <h2 class="section-heading">3. Motivation</h2>
+      <h2 class="section-heading" style="margin-top: 4px;">3. Motivation</h2>
 
       <h3 class="subsection-heading">3.1 The Vanishing Gradient Problem in Deep AI Networks</h3>
       <p>
@@ -318,7 +310,7 @@ html_body = f"""<!DOCTYPE html>
       </p>
 
       <div class="figure-container">
-        <img src="{img_topology}" alt="Skip Connection Architecture">
+        <img src="{img_topology}" alt="Skip Connection Architecture" style="max-height: 195px;">
         <div class="figure-caption">Figure 1: Neural network skip connections for step set S = {{1, 2}}. Notice how the signal splits between sequential transitions (+1 hop) and residual shortcuts (+2 hops).</div>
       </div>
 
@@ -343,58 +335,66 @@ html_body = f"""<!DOCTYPE html>
 
   <!-- ================= PAGE 5: SECTION 4 (MATHEMATICAL BACKGROUND) ================= -->
   <div class="report-page">
-    <div class="page-content">
-      <h2 class="section-heading">4. Mathematical Background</h2>
-      <p>
-        The mathematics behind CombinatorX connects three fundamental areas of DMGT: recurrence relations, algebraic generating functions, and matrix binary exponentiation.
-      </p>
-
-      <h3 class="subsection-heading">4.1 The Staircase Analogy & Recurrence Relation</h3>
-      <p>
-        Consider a simple analogy: You want to climb a staircase of <code>n</code> steps. At each move, you can take either <strong>1 step</strong> or <strong>2 steps</strong> (skip set <code>S = {{1, 2}}</code>).
-      </p>
-      <ul>
-        <li>To land on step <code>n</code>, your last move was either a 1-step from step <code>n - 1</code>, OR a 2-step from step <code>n - 2</code>.</li>
-        <li>By the combinatorial <em>Rule of Sum</em>, the total number of ways to reach step <code>n</code> is:</li>
-      </ul>
-      <div class="formula-normal">
-        aₙ = aₙ₋₁ + aₙ₋₂ &nbsp;&nbsp;(with base cases: a₀ = 1, a₁ = 1)
-      </div>
-      <p>
-        This is the famous <strong>Fibonacci recurrence</strong>! For any arbitrary set of skip steps <code>S</code>, the number of paths satisfies the homogeneous linear recurrence:
-      </p>
-      <div class="formula-normal">
-        aₙ = ∑_{{s ∈ S}} a_{{n - s}} &nbsp;&nbsp;[with boundary conditions: a₀ = 1, a_{{< 0}} = 0]
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: space-around;">
+      <div>
+        <h2 class="section-heading" style="margin-top: 4px;">4. Mathematical Background</h2>
+        <p>
+          The mathematics behind CombinatorX connects three fundamental areas of DMGT: recurrence relations, algebraic generating functions, and matrix binary exponentiation.
+        </p>
       </div>
 
-      <h3 class="subsection-heading">4.2 Ordinary Generating Functions (OGFs)</h3>
-      <p>
-        An <strong>Ordinary Generating Function</strong> represents an infinite sequence <code>(a₀, a₁, a₂, ...)</code> as the coefficients of a formal polynomial series:
-      </p>
-      <div class="formula-normal">
-        A(x) = a₀ + a₁ x + a₂ x² + a₃ x³ + ... = ∑_{{n=0}}^{{∞}} aₙ xⁿ
+      <div>
+        <h3 class="subsection-heading">4.1 The Staircase Analogy & Recurrence Relation</h3>
+        <p>
+          Consider a simple analogy: You want to climb a staircase of <code>n</code> steps. At each move, you can take either <strong>1 step</strong> or <strong>2 steps</strong> (skip set <code>S = {{1, 2}}</code>).
+        </p>
+        <ul>
+          <li>To land on step <code>n</code>, your last move was either a 1-step from step <code>n - 1</code>, OR a 2-step from step <code>n - 2</code>.</li>
+          <li>By the combinatorial <em>Rule of Sum</em>, the total number of ways to reach step <code>n</code> is:</li>
+        </ul>
+        <div class="formula-normal">
+          aₙ = aₙ₋₁ + aₙ₋₂ &nbsp;&nbsp;(with base cases: a₀ = 1, a₁ = 1)
+        </div>
+        <p>
+          This is the famous <strong>Fibonacci recurrence</strong>! For any arbitrary set of skip steps <code>S</code>, the number of paths satisfies the homogeneous linear recurrence:
+        </p>
+        <div class="formula-normal">
+          aₙ = ∑_{{s ∈ S}} a_{{n - s}} &nbsp;&nbsp;[with boundary conditions: a₀ = 1, a_{{< 0}} = 0]
+        </div>
       </div>
-      <p>
-        Each allowed forward jump is encoded by the step polynomial <code>S(x) = ∑_{{s ∈ S}} xˢ</code>. Any valid path of <code>m</code> hops corresponds to <code>(S(x))ᵐ</code>. Summing over all path lengths gives a geometric progression:
-      </p>
-      <div class="formula-normal">
-        A(x) = ∑_{{m=0}}^{{∞}} (S(x))ᵐ = 1 / (1 - S(x)) = 1 / (1 - ∑_{{s ∈ S}} xˢ)
-      </div>
-      <p>
-        For ResNet shortcuts (<code>S = {{1, 2}}</code>), this yields the closed-form rational function: <code>A(x) = 1 / (1 - x - x²)</code>.
-      </p>
 
-      <h3 class="subsection-heading">4.3 Companion Matrix Exponentiation Engine (O(k³ log n))</h3>
-      <p>
-        Let <code>k = max(S)</code>. We represent the recurrence state as a column vector: <code>vₙ = [aₙ, aₙ₋₁, ..., aₙ₋ₖ₊₁]ᵀ</code>. The transition is governed by a <code>k × k</code> Companion Matrix <code>M</code>:
-      </p>
-      <div class="formula-normal">
-        vₙ = M · vₙ₋₁ &nbsp;⟹&nbsp; vₙ = Mⁿ · v₀ = Mⁿ · [1, 0, ..., 0]ᵀ
+      <div>
+        <h3 class="subsection-heading">4.2 Ordinary Generating Functions (OGFs)</h3>
+        <p>
+          An <strong>Ordinary Generating Function</strong> represents an infinite sequence <code>(a₀, a₁, a₂, ...)</code> as the coefficients of a formal polynomial series:
+        </p>
+        <div class="formula-normal">
+          A(x) = a₀ + a₁ x + a₂ x² + a₃ x³ + ... = ∑_{{n=0}}^{{∞}} aₙ xⁿ
+        </div>
+        <p>
+          Each allowed forward jump is encoded by the step polynomial <code>S(x) = ∑_{{s ∈ S}} xˢ</code>. Any valid path of <code>m</code> hops corresponds to <code>(S(x))ᵐ</code>. Summing over all path lengths gives a geometric progression:
+        </p>
+        <div class="formula-normal">
+          A(x) = ∑_{{m=0}}^{{∞}} (S(x))ᵐ = 1 / (1 - S(x)) = 1 / (1 - ∑_{{s ∈ S}} xˢ)
+        </div>
+        <p>
+          For ResNet shortcuts (<code>S = {{1, 2}}</code>), this yields the closed-form rational function: <code>A(x) = 1 / (1 - x - x²)</code>.
+        </p>
       </div>
-      <p>
-        Using <strong>Repeated Binary Squaring</strong>, to compute <code>M¹⁰⁰⁰</code>, the computer evaluates:
-        <code>M¹⁰⁰⁰ = (M⁵⁰⁰)² = ((M²⁵⁰)²)² ...</code> which requires only <strong>14 matrix multiplications</strong> instead of 1,000 sequential loops! Thus, any depth <code>n</code> is solved in <code>O(k³ log n)</code> time.
-      </p>
+
+      <div>
+        <h3 class="subsection-heading">4.3 Companion Matrix Exponentiation Engine (O(k³ log n))</h3>
+        <p>
+          Let <code>k = max(S)</code>. We represent the recurrence state as a column vector: <code>vₙ = [aₙ, aₙ₋₁, ..., aₙ₋ₖ₊₁]ᵀ</code>. The transition is governed by a <code>k × k</code> Companion Matrix <code>M</code>:
+        </p>
+        <div class="formula-normal">
+          vₙ = M · vₙ₋₁ &nbsp;⟹&nbsp; vₙ = Mⁿ · v₀ = Mⁿ · [1, 0, ..., 0]ᵀ
+        </div>
+        <p>
+          Using <strong>Repeated Binary Squaring</strong>, to compute <code>M¹⁰⁰⁰</code>, the computer evaluates:
+          <code>M¹⁰⁰⁰ = (M⁵⁰⁰)² = ((M²⁵⁰)²)² ...</code> which requires only <strong>14 matrix multiplications</strong> instead of 1,000 sequential loops! Thus, any depth <code>n</code> is solved in <code>O(k³ log n)</code> time.
+        </p>
+      </div>
     </div>
 
     <div class="page-footer">
@@ -404,54 +404,57 @@ html_body = f"""<!DOCTYPE html>
 
   <!-- ================= PAGE 6: SECTION 5 (PROGRAMMING IMPLEMENTATION) ================= -->
   <div class="report-page">
-    <div class="page-content">
-      <h2 class="section-heading">5. Programming Implementation</h2>
-      <p>
-        CombinatorX is engineered with Next.js 14 (App Router), TypeScript, Tailwind CSS, and Recharts. The computational core consists of three distinct mathematical engines:
-      </p>
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h2 class="section-heading" style="margin-top: 4px;">5. Programming Implementation</h2>
+        <p>
+          CombinatorX is engineered with Next.js 14 (App Router), TypeScript, Tailwind CSS, and Recharts. The computational core consists of three distinct mathematical engines:
+        </p>
 
-      <h3 class="subsection-heading">5.1 Engine Complexity Comparison</h3>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Engine</th>
-            <th>Time Complexity</th>
-            <th>Space</th>
-            <th>Practical Limit</th>
-            <th>Role in Application</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>OGF Companion Matrix</strong></td>
-            <td>O(k³ · log n)</td>
-            <td>O(k²)</td>
-            <td>n &gt; 100,000+</td>
-            <td><strong>Production Engine:</strong> Instantaneous BigInt solver for massive depths.</td>
-          </tr>
-          <tr>
-            <td><strong>Linear Dynamic Prog.</strong></td>
-            <td>O(n · |S|)</td>
-            <td>O(n)</td>
-            <td>n &asymp; 10⁷</td>
-            <td><strong>Verification Baseline:</strong> High-speed iterative validation table.</td>
-          </tr>
-          <tr>
-            <td><strong>Naive Recursive DFS</strong></td>
-            <td>O(|S|ⁿ)</td>
-            <td>O(n) stack</td>
-            <td>n &asymp; 30</td>
-            <td><strong>Benchmark Target:</strong> Demonstrates exponential explosion.</td>
-          </tr>
-        </tbody>
-      </table>
+        <h3 class="subsection-heading">5.1 Engine Complexity Comparison</h3>
+        <table class="data-table" style="font-size: 10.5pt; margin: 8px 0;">
+          <thead>
+            <tr>
+              <th style="padding: 7.5px 10px;">Engine</th>
+              <th style="padding: 7.5px 10px;">Time Complexity</th>
+              <th style="padding: 7.5px 10px;">Space</th>
+              <th style="padding: 7.5px 10px;">Practical Limit</th>
+              <th style="padding: 7.5px 10px;">Role in Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 7.5px 10px;"><strong>OGF Companion Matrix</strong></td>
+              <td style="padding: 7.5px 10px;">O(k³ · log n)</td>
+              <td style="padding: 7.5px 10px;">O(k²)</td>
+              <td style="padding: 7.5px 10px;">n &gt; 100,000+</td>
+              <td style="padding: 7.5px 10px;"><strong>Production Engine:</strong> Instantaneous BigInt solver for massive depths.</td>
+            </tr>
+            <tr>
+              <td style="padding: 7.5px 10px;"><strong>Linear Dynamic Prog.</strong></td>
+              <td style="padding: 7.5px 10px;">O(n · |S|)</td>
+              <td style="padding: 7.5px 10px;">O(n)</td>
+              <td style="padding: 7.5px 10px;">n &asymp; 10⁷</td>
+              <td style="padding: 7.5px 10px;"><strong>Verification Baseline:</strong> High-speed iterative validation table.</td>
+            </tr>
+            <tr>
+              <td style="padding: 7.5px 10px;"><strong>Naive Recursive DFS</strong></td>
+              <td style="padding: 7.5px 10px;">O(|S|ⁿ)</td>
+              <td style="padding: 7.5px 10px;">O(n) stack</td>
+              <td style="padding: 7.5px 10px;">n &asymp; 30</td>
+              <td style="padding: 7.5px 10px;"><strong>Benchmark Target:</strong> Demonstrates exponential explosion.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3 class="subsection-heading">5.2 Core Implementation: Logarithmic Matrix Exponentiation</h3>
-      <p>
-        Below is the TypeScript implementation showing the binary repeated squaring loop with arbitrary-precision BigInt arithmetic:
-      </p>
+      <div>
+        <h3 class="subsection-heading">5.2 Core Implementation: Logarithmic Matrix Exponentiation</h3>
+        <p>
+          Below is the TypeScript implementation showing the binary repeated squaring loop with arbitrary-precision BigInt arithmetic:
+        </p>
 
-      <div class="code-block">
+        <div class="code-block" style="font-size: 8.8pt; line-height: 1.48; padding: 12px; margin: 8px 0;">
 // Binary Matrix Exponentiation in O(k^3 * log n) with BigInt precision
 export function countPathsMatrix(n: number, S: number[]): bigint {{
   if (n === 0) return 1n;
@@ -471,10 +474,11 @@ export function countPathsMatrix(n: number, S: number[]): bigint {{
 
   return result[0][0]; // Path count a_n is extracted directly from entry M^n[0][0]
 }}
+        </div>
       </div>
 
-      <div class="figure-container" style="margin-top: 8px;">
-        <img src="{img_matrix}" alt="Matrix Exponentiation vs Tree Recursion">
+      <div class="figure-container" style="margin: 8px 0 0 0;">
+        <img src="{img_matrix}" alt="Matrix Exponentiation vs Tree Recursion" style="max-height: 235px;">
         <div class="figure-caption">Figure 2: Visual comparison of (A) Recursive Tree Explosion O(|S|ⁿ) vs (B) Logarithmic Companion Matrix Exponentiation O(k³ log n).</div>
       </div>
     </div>
@@ -486,105 +490,109 @@ export function countPathsMatrix(n: number, S: number[]): bigint {{
 
   <!-- ================= PAGE 7: SECTION 6 (OUTPUT) ================= -->
   <div class="report-page">
-    <div class="page-content">
-      <h2 class="section-heading">6. Output</h2>
-      <p>
-        The system outputs both graphical interactive visualizations and rigorous numerical telemetry through its engineering lab dashboard.
-      </p>
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h2 class="section-heading" style="margin-top: 4px;">6. Output</h2>
+        <p>
+          The system outputs both graphical interactive visualizations and rigorous numerical telemetry through its engineering lab dashboard.
+        </p>
 
-      <h3 class="subsection-heading">6.1 Live Application Dashboard</h3>
-      <p>
-        Figure 3 shows the running application interface with real-time telemetry cards, parameter configuration controls, the interactive neural topology visualizer, and the comparative benchmark graph:
-      </p>
+        <h3 class="subsection-heading">6.1 Live Application Dashboard</h3>
+        <p>
+          Figure 3 shows the running application interface with real-time telemetry cards, parameter configuration controls, the interactive neural topology visualizer, and the comparative benchmark graph:
+        </p>
 
-      <div class="figure-container">
-        <img src="{img_screenshot}" alt="CombinatorX Application Dashboard" style="max-height: 200px;">
-        <div class="figure-caption">Figure 3: Production interface of CombinatorX running on localhost:3000 showing active parameters (n = 34, S = [1, 2]), instant path count (9,227,465), and latency (&lt; 0.010 ms).</div>
+        <div class="figure-container" style="margin: 6px 0;">
+          <img src="{img_screenshot}" alt="CombinatorX Application Dashboard" style="max-height: 225px;">
+          <div class="figure-caption">Figure 3: Production interface of CombinatorX running on localhost:3000 showing active parameters (n = 34, S = [1, 2]), instant path count (9,227,465), and latency (&lt; 0.010 ms).</div>
+        </div>
       </div>
 
-      <h3 class="subsection-heading">6.2 Tabulated Output Across Architectural Depths</h3>
-      <p>
-        Below is the benchmark output generated by the engine across standard neural network depths:
-      </p>
+      <div>
+        <h3 class="subsection-heading">6.2 Tabulated Output Across Architectural Depths</h3>
+        <p>
+          Below is the benchmark output generated by the engine across standard neural network depths:
+        </p>
 
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Depth (n)</th>
-            <th>Skip Set (S)</th>
-            <th>Architecture Model</th>
-            <th>Valid Topologies (aₙ)</th>
-            <th>Matrix Time</th>
-            <th>Naive DFS Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>n = 5</td>
-            <td>[1, 2]</td>
-            <td>Shallow Residual Toy</td>
-            <td>8 paths</td>
-            <td>0.008 ms</td>
-            <td>0.021 ms</td>
-          </tr>
-          <tr>
-            <td>n = 10</td>
-            <td>[1, 2]</td>
-            <td>10-layer ResNet Block</td>
-            <td>89 paths</td>
-            <td>0.009 ms</td>
-            <td>0.082 ms</td>
-          </tr>
-          <tr>
-            <td>n = 20</td>
-            <td>[1, 2]</td>
-            <td>ResNet-20 (CIFAR-10)</td>
-            <td>10,946 paths</td>
-            <td>0.011 ms</td>
-            <td>3.210 ms</td>
-          </tr>
-          <tr>
-            <td>n = 30</td>
-            <td>[1, 2]</td>
-            <td>Medium Residual Vision</td>
-            <td>1,346,269 paths</td>
-            <td>0.013 ms</td>
-            <td>1,150.40 ms (1.15 s)</td>
-          </tr>
-          <tr>
-            <td>n = 34</td>
-            <td>[1, 2]</td>
-            <td>ResNet-34 Standard</td>
-            <td>9,227,465 paths</td>
-            <td>0.014 ms</td>
-            <td>~12.80 seconds</td>
-          </tr>
-          <tr>
-            <td>n = 50</td>
-            <td>[1, 2]</td>
-            <td>ResNet-50 Bottleneck</td>
-            <td>20,365,011,074 paths</td>
-            <td>0.016 ms</td>
-            <td><em>Timeout (&gt; 2 hours)</em></td>
-          </tr>
-          <tr>
-            <td>n = 1,000</td>
-            <td>[1, 2]</td>
-            <td>Ultra-Deep Highway</td>
-            <td>7.03 &times; 10²⁰⁸ (209 digits)</td>
-            <td>0.024 ms</td>
-            <td><em>Impossible (&gt; 10²⁹⁰ yrs)</em></td>
-          </tr>
-          <tr>
-            <td>n = 10,000</td>
-            <td>[1, 2, 4]</td>
-            <td>Scalability Stress Test</td>
-            <td>Exact BigInt (2,089 digits)</td>
-            <td>0.048 ms</td>
-            <td><em>Impossible</em></td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="data-table" style="font-size: 10pt; margin: 6px 0 0 0;">
+          <thead>
+            <tr>
+              <th style="padding: 7px 9px;">Depth (n)</th>
+              <th style="padding: 7px 9px;">Skip Set (S)</th>
+              <th style="padding: 7px 9px;">Architecture Model</th>
+              <th style="padding: 7px 9px;">Valid Topologies (aₙ)</th>
+              <th style="padding: 7px 9px;">Matrix Time</th>
+              <th style="padding: 7px 9px;">Naive DFS Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 7px 9px;">n = 5</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">Shallow Residual Toy</td>
+              <td style="padding: 7px 9px;">8 paths</td>
+              <td style="padding: 7px 9px;">0.008 ms</td>
+              <td style="padding: 7px 9px;">0.021 ms</td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 10</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">10-layer ResNet Block</td>
+              <td style="padding: 7px 9px;">89 paths</td>
+              <td style="padding: 7px 9px;">0.009 ms</td>
+              <td style="padding: 7px 9px;">0.082 ms</td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 20</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">ResNet-20 (CIFAR-10)</td>
+              <td style="padding: 7px 9px;">10,946 paths</td>
+              <td style="padding: 7px 9px;">0.011 ms</td>
+              <td style="padding: 7px 9px;">3.210 ms</td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 30</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">Medium Residual Vision</td>
+              <td style="padding: 7px 9px;">1,346,269 paths</td>
+              <td style="padding: 7px 9px;">0.013 ms</td>
+              <td style="padding: 7px 9px;">1,150.40 ms (1.15 s)</td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 34</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">ResNet-34 Standard</td>
+              <td style="padding: 7px 9px;">9,227,465 paths</td>
+              <td style="padding: 7px 9px;">0.014 ms</td>
+              <td style="padding: 7px 9px;">~12.80 seconds</td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 50</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">ResNet-50 Bottleneck</td>
+              <td style="padding: 7px 9px;">20,365,011,074 paths</td>
+              <td style="padding: 7px 9px;">0.016 ms</td>
+              <td style="padding: 7px 9px;"><em>Timeout (&gt; 2 hours)</em></td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 1,000</td>
+              <td style="padding: 7px 9px;">[1, 2]</td>
+              <td style="padding: 7px 9px;">Ultra-Deep Highway</td>
+              <td style="padding: 7px 9px;">7.03 &times; 10²⁰⁸ (209 digits)</td>
+              <td style="padding: 7px 9px;">0.024 ms</td>
+              <td style="padding: 7px 9px;"><em>Impossible (&gt; 10²⁹⁰ yrs)</em></td>
+            </tr>
+            <tr>
+              <td style="padding: 7px 9px;">n = 10,000</td>
+              <td style="padding: 7px 9px;">[1, 2, 4]</td>
+              <td style="padding: 7px 9px;">Scalability Stress Test</td>
+              <td style="padding: 7px 9px;">Exact BigInt (2,089 digits)</td>
+              <td style="padding: 7px 9px;">0.048 ms</td>
+              <td style="padding: 7px 9px;"><em>Impossible</em></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="page-footer">
@@ -594,46 +602,50 @@ export function countPathsMatrix(n: number, S: number[]): bigint {{
 
   <!-- ================= PAGE 8: SECTION 7 (OBSERVATIONS & INFERENCES) ================= -->
   <div class="report-page">
-    <div class="page-content">
-      <h2 class="section-heading">7. Observations and Inferences</h2>
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h2 class="section-heading" style="margin-top: 4px;">7. Observations and Inferences</h2>
 
-      <h3 class="subsection-heading">7.1 Empirical Performance Curve Analysis</h3>
-      <p>
-        Figure 4 illustrates the benchmark results comparing the three algorithmic engines:
-      </p>
+        <h3 class="subsection-heading">7.1 Empirical Performance Curve Analysis</h3>
+        <p>
+          Figure 4 illustrates the benchmark results comparing the three algorithmic engines:
+        </p>
 
-      <div class="figure-container">
-        <img src="{img_benchmark}" alt="Benchmark Performance Curve">
-        <div class="figure-caption">Figure 4: Logarithmic execution latency graph. Notice how the exponential DFS curve rockets vertically, while the Companion Matrix engine stays flat near 0.01 ms.</div>
+        <div class="figure-container" style="margin: 6px 0;">
+          <img src="{img_benchmark}" alt="Benchmark Performance Curve" style="max-height: 250px;">
+          <div class="figure-caption">Figure 4: Logarithmic execution latency graph. Notice how the exponential DFS curve rockets vertically, while the Companion Matrix engine stays flat near 0.01 ms.</div>
+        </div>
       </div>
 
-      <h3 class="subsection-heading">7.2 Key Inferences</h3>
-      <ol>
-        <li>
-          <strong>The Exponential "Brute-Force Cliff" (n &ge; 28):</strong>
-          <p>
-            For small depths (<code>n &le; 15</code>), naive DFS appears acceptable (under 1 ms). However, between <code>n = 20</code> and <code>n = 32</code>, DFS latency explodes exponentially by approximately <code>1.618ⁿ</code>. At depth <code>n = 32</code>, DFS makes over <strong>4.2 billion recursive calls</strong>, causing noticeable browser freezes.
-          </p>
-        </li>
-        <li>
-          <strong>Logarithmic Flatline Efficiency:</strong>
-          <p>
-            The OGF Companion Matrix engine exhibits a virtually flat execution curve. Going from depth <code>n = 30</code> to depth <code>n = 1,000</code> increases execution time by less than <strong>0.02 milliseconds</strong>! At depth <code>n = 32</code>, the matrix engine is <strong>over 320,000&times; faster</strong> than naive recursion.
-          </p>
-        </li>
-        <li>
-          <strong>Floating-Point Breakdown vs. BigInt Arbitrary Precision:</strong>
-          <p>
-            Standard JavaScript numbers use 64-bit IEEE floats (<code>Number.MAX_SAFE_INTEGER = 9 &times; 10¹⁵</code>). For Fibonacci skip connections, this integer limit is breached at just <code>n = 78</code>. By implementing native <code>BigInt</code> matrices, our engine accurately computes exact values with thousands of digits without rounding or precision drift.
-          </p>
-        </li>
-        <li>
-          <strong>The Asymptotic Growth Multiplier (&rho;):</strong>
-          <p>
-            The dominant pole of the generating function governs the growth of neural network paths. For standard residual blocks (<code>S = [1, 2]</code>), <code>&rho; = (1 + &radic;5) / 2 &asymp; 1.618</code>. This means that <strong>each additional residual block increases the total path ensemble by ~61.8%</strong>.
-          </p>
-        </li>
-      </ol>
+      <div>
+        <h3 class="subsection-heading">7.2 Key Inferences</h3>
+        <ol style="margin-bottom: 0;">
+          <li style="margin-bottom: 8px;">
+            <strong>The Exponential "Brute-Force Cliff" (n &ge; 28):</strong>
+            <p style="margin-bottom: 3px;">
+              For small depths (<code>n &le; 15</code>), naive DFS appears acceptable (under 1 ms). However, between <code>n = 20</code> and <code>n = 32</code>, DFS latency explodes exponentially by approximately <code>1.618ⁿ</code>. At depth <code>n = 32</code>, DFS makes over <strong>4.2 billion recursive calls</strong>, causing noticeable browser freezes.
+            </p>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Logarithmic Flatline Efficiency:</strong>
+            <p style="margin-bottom: 3px;">
+              The OGF Companion Matrix engine exhibits a virtually flat execution curve. Going from depth <code>n = 30</code> to depth <code>n = 1,000</code> increases execution time by less than <strong>0.02 milliseconds</strong>! At depth <code>n = 32</code>, the matrix engine is <strong>over 320,000&times; faster</strong> than naive recursion.
+            </p>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Floating-Point Breakdown vs. BigInt Arbitrary Precision:</strong>
+            <p style="margin-bottom: 3px;">
+              Standard JavaScript numbers use 64-bit IEEE floats (<code>Number.MAX_SAFE_INTEGER = 9 &times; 10¹⁵</code>). For Fibonacci skip connections, this integer limit is breached at just <code>n = 78</code>. By implementing native <code>BigInt</code> matrices, our engine accurately computes exact values with thousands of digits without rounding or precision drift.
+            </p>
+          </li>
+          <li style="margin-bottom: 0;">
+            <strong>The Asymptotic Growth Multiplier (&rho;):</strong>
+            <p style="margin-bottom: 0;">
+              The dominant pole of the generating function governs the growth of neural network paths. For standard residual blocks (<code>S = [1, 2]</code>), <code>&rho; = (1 + &radic;5) / 2 &asymp; 1.618</code>. This means that <strong>each additional residual block increases the total path ensemble by ~61.8%</strong>.
+            </p>
+          </li>
+        </ol>
+      </div>
     </div>
 
     <div class="page-footer">
@@ -643,50 +655,54 @@ export function countPathsMatrix(n: number, S: number[]): bigint {{
 
   <!-- ================= PAGE 9: SECTIONS 8 & 9 (CONCLUSIONS & REFERENCES) ================= -->
   <div class="report-page">
-    <div class="page-content">
-      <h2 class="section-heading">8. Conclusions</h2>
-      <p>
-        This project successfully demonstrated the vital practical role of <strong>Discrete Mathematics and Graph Theory (DMGT)</strong> in modern Computer Science and Artificial Intelligence:
-      </p>
-      <ul>
-        <li>
-          <strong>Theoretical Breakthrough:</strong> We proved that complex neural skip-connection topologies can be modeled as algebraic integer compositions and solved using Ordinary Generating Functions.
-        </li>
-        <li>
-          <strong>Computational Scalability:</strong> By replacing brute-force recursive tree search (<code>O(|S|ⁿ)</code>) with companion matrix repeated binary squaring (<code>O(k³ log n)</code>), we turned a problem requiring years of CPU time into an instantaneous <strong>0.02 millisecond</strong> operation.
-        </li>
-        <li>
-          <strong>Interactive Educational Tool:</strong> The resulting <strong>CombinatorX</strong> web application provides an intuitive visual laboratory where students, engineers, and researchers can interactively inspect skip-connection DAGs, animate signal flow, inspect companion matrices, and run real-time benchmarks.
-        </li>
-        <li>
-          <strong>Architectural Insight:</strong> The combinatorial enumeration confirms why residual architectures (ResNet, Transformers) are so effective: they create a massive ensemble of diverse, multi-scale computational paths that prevent gradient decay and maximize feature reuse.
-        </li>
-      </ul>
+    <div class="page-content" style="display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h2 class="section-heading" style="margin-top: 4px;">8. Conclusions</h2>
+        <p>
+          This project successfully demonstrated the vital practical role of <strong>Discrete Mathematics and Graph Theory (DMGT)</strong> in modern Computer Science and Artificial Intelligence:
+        </p>
+        <ul>
+          <li style="margin-bottom: 8px;">
+            <strong>Theoretical Breakthrough:</strong> We proved that complex neural skip-connection topologies can be modeled as algebraic integer compositions and solved using Ordinary Generating Functions.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Computational Scalability:</strong> By replacing brute-force recursive tree search (<code>O(|S|ⁿ)</code>) with companion matrix repeated binary squaring (<code>O(k³ log n)</code>), we turned a problem requiring years of CPU time into an instantaneous <strong>0.02 millisecond</strong> operation.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Interactive Educational Tool:</strong> The resulting <strong>CombinatorX</strong> web application provides an intuitive visual laboratory where students, engineers, and researchers can interactively inspect skip-connection DAGs, animate signal flow, inspect companion matrices, and run real-time benchmarks.
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Architectural Insight:</strong> The combinatorial enumeration confirms why residual architectures (ResNet, Transformers) are so effective: they create a massive ensemble of diverse, multi-scale computational paths that prevent gradient decay and maximize feature reuse.
+          </li>
+        </ul>
+      </div>
 
-      <h2 class="section-heading" style="margin-top: 16px;">9. References</h2>
-      <ol style="font-size: 8.5pt; line-height: 1.45;">
-        <li>
-          <strong>He, K., Zhang, X., Ren, S., & Sun, J. (2016).</strong> Deep Residual Learning for Image Recognition. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pp. 770–778.
-        </li>
-        <li>
-          <strong>Veit, A., Wilber, M. J., & Belongie, S. (2016).</strong> Residual Networks Behave Like Ensembles of Relatively Shallow Networks. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 29, pp. 550–558.
-        </li>
-        <li>
-          <strong>Huang, G., Liu, Z., Van Der Maaten, L., & Weinberger, K. Q. (2017).</strong> Densely Connected Convolutional Networks. In <em>IEEE CVPR (Best Paper Award)</em>, pp. 4700–4708.
-        </li>
-        <li>
-          <strong>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017).</strong> Attention Is All You Need. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 30.
-        </li>
-        <li>
-          <strong>Flajolet, P., & Sedgewick, R. (2009).</strong> <em>Analytic Combinatorics</em>. Cambridge University Press.
-        </li>
-        <li>
-          <strong>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009).</strong> <em>Introduction to Algorithms</em> (3rd ed.). MIT Press. Section 31.2: Modular Arithmetic & Repeated Squaring.
-        </li>
-        <li>
-          <strong>Graham, R. L., Knuth, D. E., & Patashnik, O. (1994).</strong> <em>Concrete Mathematics: A Foundation for Computer Science</em> (2nd ed.). Addison-Wesley. Chapter 7: Generating Functions.
-        </li>
-      </ol>
+      <div>
+        <h2 class="section-heading" style="margin-top: 14px;">9. References</h2>
+        <ol style="font-size: 10.5pt; line-height: 1.55; margin-bottom: 0;">
+          <li style="margin-bottom: 7px;">
+            <strong>He, K., Zhang, X., Ren, S., & Sun, J. (2016).</strong> Deep Residual Learning for Image Recognition. In <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, pp. 770–778.
+          </li>
+          <li style="margin-bottom: 7px;">
+            <strong>Veit, A., Wilber, M. J., & Belongie, S. (2016).</strong> Residual Networks Behave Like Ensembles of Relatively Shallow Networks. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 29, pp. 550–558.
+          </li>
+          <li style="margin-bottom: 7px;">
+            <strong>Huang, G., Liu, Z., Van Der Maaten, L., & Weinberger, K. Q. (2017).</strong> Densely Connected Convolutional Networks. In <em>IEEE CVPR (Best Paper Award)</em>, pp. 4700–4708.
+          </li>
+          <li style="margin-bottom: 7px;">
+            <strong>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017).</strong> Attention Is All You Need. In <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 30.
+          </li>
+          <li style="margin-bottom: 7px;">
+            <strong>Flajolet, P., & Sedgewick, R. (2009).</strong> <em>Analytic Combinatorics</em>. Cambridge University Press.
+          </li>
+          <li style="margin-bottom: 7px;">
+            <strong>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009).</strong> <em>Introduction to Algorithms</em> (3rd ed.). MIT Press. Section 31.2: Modular Arithmetic & Repeated Squaring.
+          </li>
+          <li style="margin-bottom: 0;">
+            <strong>Graham, R. L., Knuth, D. E., & Patashnik, O. (1994).</strong> <em>Concrete Mathematics: A Foundation for Computer Science</em> (2nd ed.). Addison-Wesley. Chapter 7: Generating Functions.
+          </li>
+        </ol>
+      </div>
     </div>
 
     <div class="page-footer">
@@ -763,7 +779,7 @@ except Exception as e:
 final_doc.close()
 body_doc.close()
 
-# Cleanup temporary body pdf
+# Cleanup temporary files
 if os.path.exists(temp_body_pdf):
     os.remove(temp_body_pdf)
 if os.path.exists(html_body_path):
