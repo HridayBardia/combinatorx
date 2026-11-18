@@ -1,5 +1,6 @@
 import os
 import base64
+import time
 from PIL import Image, ImageDraw, ImageFont
 import pymupdf
 from selenium import webdriver
@@ -40,7 +41,7 @@ im2.save(im2_out)
 print("Page 1 and Page 2 images prepared.")
 
 # -------------------------------------------------------------
-# Step 2: Prepare Body HTML for Pages 3 through 9
+# Step 2: Prepare Body HTML for Pages 3 through 9 with KaTeX
 # -------------------------------------------------------------
 def get_base64_img(path):
     if not os.path.exists(path):
@@ -56,31 +57,35 @@ img_matrix = get_base64_img("report_assets/diagram_matrix_exponentiation.png")
 img_benchmark = get_base64_img("report_assets/chart_benchmark_performance.png")
 img_screenshot = get_base64_img("report_assets/app_screenshot.png")
 
-html_body = f"""<!DOCTYPE html>
+html_body = r"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>CombinatorX Project Report Body</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
   <style>
-    @page {{
+    @page {
       size: A4 portrait;
       margin: 12mm 14mm 12mm 14mm;
-    }}
+    }
     
-    * {{
+    * {
       box-sizing: border-box;
-    }}
+    }
 
-    body {{
+    body {
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       color: #000000;
       line-height: 1.55;
       font-size: 11pt;
       margin: 0;
       padding: 0;
-    }}
+    }
 
-    .report-page {{
+    .report-page {
       height: 272mm;
       max-height: 272mm;
       display: flex;
@@ -89,89 +94,89 @@ html_body = f"""<!DOCTYPE html>
       page-break-after: always;
       break-after: page;
       overflow: hidden;
-    }}
+    }
 
-    .report-page:last-child {{
+    .report-page:last-child {
       page-break-after: avoid;
       break-after: avoid;
-    }}
+    }
 
-    .page-content {{
+    .page-content {
       flex: 1;
-    }}
+    }
 
-    .page-footer {{
+    .page-footer {
       text-align: center;
       padding-top: 6px;
       margin-top: 8px;
       font-size: 10pt;
       color: #000000;
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
-    }}
+    }
 
-    h2.section-heading {{
+    h2.section-heading {
       font-size: 15pt;
       font-weight: 700;
       color: #000000;
       border-bottom: none;
       margin-top: 14px;
       margin-bottom: 10px;
-    }}
+    }
 
-    h3.subsection-heading {{
-      font-size: 12.5pt;
+    h3.subsection-heading {
+      font-size: 12pt;
       font-weight: 700;
       color: #000000;
-      margin-top: 14px;
-      margin-bottom: 6px;
-    }}
+      margin-top: 10px;
+      margin-bottom: 4px;
+    }
 
-    p {{
+    p {
       margin-top: 0;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       text-align: justify;
       color: #000000;
-    }}
+    }
 
-    ul, ol {{
-      margin-top: 4px;
-      margin-bottom: 8px;
+    ul, ol {
+      margin-top: 3px;
+      margin-bottom: 7px;
       padding-left: 24px;
       color: #000000;
-    }}
+    }
 
-    li {{
-      margin-bottom: 6px;
-    }}
+    li {
+      margin-bottom: 5px;
+    }
 
-    table.data-table {{
+    table.data-table {
       width: 100%;
       border-collapse: collapse;
       margin: 10px 0 12px 0;
       font-size: 10pt;
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       border: 1px solid #000000;
-    }}
+    }
 
-    table.data-table th, table.data-table td {{
+    table.data-table th, table.data-table td {
       border: 1px solid #000000;
       padding: 6.5px 9px;
       text-align: left;
       color: #000000;
-    }}
+    }
 
-    table.data-table th {{
+    table.data-table th {
       background-color: #f2f2f2;
       color: #000000;
       font-weight: 700;
       text-align: center;
-    }}
+    }
 
-    table.data-table tr:nth-child(even) td {{
+    table.data-table tr:nth-child(even) td {
       background-color: #fafafa;
-    }}
+    }
 
-    .callout {{
+    .callout {
       background: #ffffff;
       border: 1px solid #000000;
       padding: 12px 14px;
@@ -180,65 +185,48 @@ html_body = f"""<!DOCTYPE html>
       font-size: 10.5pt;
       color: #000000;
       line-height: 1.5;
-    }}
+    }
 
-    .formula-normal {{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12pt;
-      font-weight: 700;
-      color: #000000;
-      margin: 12px 0;
-      padding: 4px 0;
-      font-family: 'Cambria Math', 'Times New Roman', Calibri, serif;
-    }}
-
-    .fraction {{
-      display: inline-flex;
-      flex-direction: column;
-      vertical-align: middle;
+    .formula-normal {
       text-align: center;
-      padding: 0 4px;
-      font-size: 0.95em;
-      line-height: 1.1;
-    }}
+      margin: 4px 0;
+      padding: 0;
+    }
 
-    .fraction .num {{
-      border-bottom: 1.5px solid #000000;
-      padding-bottom: 2px;
-    }}
+    .katex {
+      font-size: 1.15em;
+    }
 
-    .fraction .denom {{
-      padding-top: 2px;
-    }}
+    .katex-display {
+      margin: 3px 0 !important;
+    }
 
-    .figure-container {{
+    .figure-container {
       text-align: center;
       margin: 10px 0;
-    }}
+    }
 
-    .figure-container img {{
+    .figure-container img {
       max-width: 98%;
       height: auto;
       border: 1px solid #000000;
       border-radius: 2px;
-    }}
+    }
 
-    .figure-caption {{
+    .figure-caption {
       font-size: 9pt;
       color: #000000;
       margin-top: 5px;
       font-weight: 600;
-    }}
+    }
 
-    code {{
+    code {
       font-family: Calibri, 'Segoe UI', Arial, sans-serif;
       font-weight: 700;
       color: #000000;
-    }}
+    }
 
-    pre.code-block {{
+    pre.code-block {
       background: #ffffff;
       border: 1px solid #000000;
       color: #000000;
@@ -250,7 +238,7 @@ html_body = f"""<!DOCTYPE html>
       overflow-x: auto;
       margin: 6px 0;
       white-space: pre;
-    }}
+    }
   </style>
 </head>
 <body>
@@ -267,7 +255,7 @@ html_body = f"""<!DOCTYPE html>
       </p>
       
       <div class="callout">
-        <strong>Formal Problem Formulation:</strong> Consider a neural network consisting of <code>n + 1</code> layers indexed from <code>0</code> (input) to <code>n</code> (output). Let forward signals propagate using allowed skip step sizes from set <code>S = {{s₁, s₂, ..., sₖ}}</code> (where each <code>sᵢ ∈ ℤ⁺</code>).
+        <strong>Formal Problem Formulation:</strong> Consider a neural network consisting of <code>n + 1</code> layers indexed from <code>0</code> (input) to <code>n</code> (output). Let forward signals propagate using allowed skip step sizes from set <code>S = {s₁, s₂, ..., sₖ}</code> (where each $s_i \in \mathbb{Z}^+$).
         <br><br>
         <strong>Research Question:</strong> How many distinct valid routing pathways exist from Input Layer <code>0</code> to Output Layer <code>n</code>, and how can we compute this count for ultra-deep networks (e.g., <code>n = 10,000</code>) instantaneously without computational freezing or precision loss?
       </div>
@@ -275,7 +263,7 @@ html_body = f"""<!DOCTYPE html>
       <p><strong>The Core Challenges Faced:</strong></p>
       <ul>
         <li><strong>Exponential Growth:</strong> As network depth <code>n</code> increases, the number of routing paths explodes exponentially (millions for depth 34, and billions for depth 50).</li>
-        <li><strong>Brute-Force Failure:</strong> Naive recursive algorithms (like Depth-First Search) attempt to count paths one by one, scaling at <code>O(|S|ⁿ)</code>. This crashes the browser or causes timeout errors beyond depth <code>n = 30</code>.</li>
+        <li><strong>Brute-Force Failure:</strong> Naive recursive algorithms (like Depth-First Search) attempt to count paths one by one, scaling at $O(|S|^n)$. This crashes the browser or causes timeout errors beyond depth <code>n = 30</code>.</li>
         <li><strong>Integer Overflow:</strong> Standard 64-bit IEEE floating-point numbers overflow at depth <code>n = 78</code>, causing precision breakdown.</li>
       </ul>
 
@@ -285,13 +273,13 @@ html_body = f"""<!DOCTYPE html>
       </p>
       <ol>
         <li>
-          <strong>Combinatorial Graph Formulation:</strong> Model neural skip routing as a discrete integer composition problem, defining the homogeneous linear recurrence relation: <code>a<sub>n</sub> = &sum;<sub>s &isin; S</sub> a<sub>n &minus; s</sub></code>.
+          <strong>Combinatorial Graph Formulation:</strong> Model neural skip routing as a discrete integer composition problem, defining the homogeneous linear recurrence relation: $a_n = \sum_{s \in S} a_{n - s}$.
         </li>
         <li>
-          <strong>Ordinary Generating Function (OGF) Derivation:</strong> Express the infinite ensemble of routing topologies as a closed-form rational function <code>A(x) = <span class="fraction" style="font-size: 9.5pt; font-family: 'Cambria Math', serif; font-weight: bold;"><span class="num">1</span><span class="denom">1 &minus; &sum; x<sup>s</sup></span></span></code> via geometric algebraic convolution.
+          <strong>Ordinary Generating Function (OGF) Derivation:</strong> Express the infinite ensemble of routing topologies as a closed-form rational function $A(x) = \frac{1}{1 - \sum_{s \in S} x^s}$ via geometric algebraic convolution.
         </li>
         <li>
-          <strong>Logarithmic Matrix Exponentiation Engine:</strong> Construct a canonical <code>k &times; k</code> Companion Matrix <code>M</code> (where <code>k = max(S)</code>) and implement repeated binary squaring to calculate paths for any depth <code>n</code> in <code>O(k³ log n)</code> time using arbitrary-precision <code>BigInt</code> arithmetic.
+          <strong>Logarithmic Matrix Exponentiation Engine:</strong> Construct a canonical $k \times k$ Companion Matrix $M$ (where $k = \max(S)$) and implement repeated binary squaring to calculate paths for any depth $n$ in $O(k^3 \log n)$ time using arbitrary-precision <code>BigInt</code> arithmetic.
         </li>
         <li>
           <strong>Interactive Full-Stack Web Application:</strong> Develop <strong>CombinatorX</strong> (Next.js 14, TypeScript, Tailwind CSS) featuring live telemetry cards, architectural presets (ResNet, DenseNet, Transformer streams), and an interactive SVG Directed Acyclic Graph (DAG) visualizer.
@@ -320,7 +308,7 @@ html_body = f"""<!DOCTYPE html>
         In 2015, Kaiming He et al. introduced <strong>ResNet</strong>, adding an identity shortcut connection around layers:
       </p>
       <div class="formula-normal">
-        Output = F(x) + x &nbsp;&nbsp;[Identity Residual Connection]
+        $$\text{Output} = \mathcal{F}(x) + x \quad \text{[Identity Residual Connection]}$$
       </div>
       <p>
         This shortcut creates an uninterrupted gradient highway, allowing networks of 50, 101, and 152 layers to train smoothly and win the ImageNet competition.
@@ -332,8 +320,8 @@ html_body = f"""<!DOCTYPE html>
       </p>
 
       <div class="figure-container">
-        <img src="{img_topology}" alt="Skip Connection Architecture" style="max-height: 195px;">
-        <div class="figure-caption">Figure 1: Neural network skip connections for step set S = {{1, 2}}. Notice how the signal splits between sequential transitions (+1 hop) and residual shortcuts (+2 hops).</div>
+        <img src="__IMG_TOPOLOGY__" alt="Skip Connection Architecture" style="max-height: 195px;">
+        <div class="figure-caption">Figure 1: Neural network skip connections for step set S = {1, 2}. Notice how the signal splits between sequential transitions (+1 hop) and residual shortcuts (+2 hops).</div>
       </div>
 
       <h3 class="subsection-heading">3.3 Why Discrete Mathematics & Graph Theory (DMGT) is Essential</h3>
@@ -368,56 +356,53 @@ html_body = f"""<!DOCTYPE html>
       <div>
         <h3 class="subsection-heading">4.1 The Staircase Analogy & Recurrence Relation</h3>
         <p>
-          Consider a simple analogy: You want to climb a staircase of <code>n</code> steps. At each move, you can take either <strong>1 step</strong> or <strong>2 steps</strong> (skip set <code>S = {{1, 2}}</code>).
+          Consider a simple analogy: You want to climb a staircase of <code>n</code> steps. At each move, you can take either <strong>1 step</strong> or <strong>2 steps</strong> (skip set $S = \{1, 2\}$).
         </p>
         <ul>
-          <li>To land on step <code>n</code>, your last move was either a 1-step from step <code>n &minus; 1</code>, OR a 2-step from step <code>n &minus; 2</code>.</li>
+          <li>To land on step <code>n</code>, your last move was either a 1-step from step <code>n - 1</code>, OR a 2-step from step <code>n - 2</code>.</li>
           <li>By the combinatorial <em>Rule of Sum</em>, the total number of ways to reach step <code>n</code> is:</li>
         </ul>
         <div class="formula-normal">
-          a<sub>n</sub> = a<sub>n&minus;1</sub> + a<sub>n&minus;2</sub> &nbsp;&nbsp;(with base cases: a<sub>0</sub> = 1, a<sub>1</sub> = 1)
+          $$a_n = a_{n-1} + a_{n-2} \quad (\text{with base cases: } a_0 = 1, \, a_1 = 1)$$
         </div>
         <p>
           This is the famous <strong>Fibonacci recurrence</strong>! For any arbitrary set of skip steps <code>S</code>, the number of paths satisfies the homogeneous linear recurrence:
         </p>
         <div class="formula-normal">
-          a<sub>n</sub> = &sum;<sub>s &isin; S</sub> a<sub>n &minus; s</sub> &nbsp;&nbsp;[with boundary conditions: a<sub>0</sub> = 1, a<sub>n &lt; 0</sub> = 0]
+          $$a_n = \sum_{s \in S} a_{n - s} \quad [\text{with boundary conditions: } a_0 = 1, \, a_{n < 0} = 0]$$
         </div>
       </div>
 
       <div>
         <h3 class="subsection-heading">4.2 Ordinary Generating Functions (OGFs)</h3>
         <p>
-          An <strong>Ordinary Generating Function</strong> represents an infinite sequence (a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, &hellip;) as the coefficients of a formal polynomial series:
+          An <strong>Ordinary Generating Function</strong> represents an infinite sequence $(a_0, a_1, a_2, \dots)$ as the coefficients of a formal polynomial series:
         </p>
         <div class="formula-normal">
-          A(x) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>x<sup>2</sup> + a<sub>3</sub>x<sup>3</sup> + &hellip; = &sum;<sub>n=0</sub><sup>&infin;</sup> a<sub>n</sub>x<sup>n</sup>
+          $$A(x) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + \dots = \sum_{n=0}^{\infty} a_n x^n$$
         </div>
         <p>
-          Each allowed forward jump is encoded by the step polynomial <code>S(x) = &sum;<sub>s &isin; S</sub> x<sup>s</sup></code>. Any valid path of <code>m</code> hops corresponds to (S(x))<sup>m</sup>. Summing over all path lengths gives a geometric progression:
+          Each allowed forward jump is encoded by the step polynomial $S(x) = \sum_{s \in S} x^s$. Any valid path of <code>m</code> hops corresponds to $(S(x))^m$. Summing over all path lengths gives a geometric progression:
         </p>
         <div class="formula-normal">
-          A(x) = &sum;<sub>m=0</sub><sup>&infin;</sup> (S(x))<sup>m</sup> = 
-          <div class="fraction"><span class="num">1</span><span class="denom">1 &minus; S(x)</span></div>
-          = 
-          <div class="fraction"><span class="num">1</span><span class="denom">1 &minus; &sum;<sub>s &isin; S</sub> x<sup>s</sup></span></div>
+          $$A(x) = \sum_{m=0}^{\infty} (S(x))^m = \frac{1}{1 - S(x)} = \frac{1}{1 - \sum_{s \in S} x^s}$$
         </div>
         <p>
-          For ResNet shortcuts (<code>S = {{1, 2}}</code>), this yields the closed-form rational function: &nbsp; <code>A(x) = </code> <span class="fraction" style="font-size: 10.5pt; font-family: 'Cambria Math', serif; font-weight: bold;"><span class="num">1</span><span class="denom">1 &minus; x &minus; x<sup>2</sup></span></span>.
+          For ResNet shortcuts ($S = \{1, 2\}$), this yields the closed-form rational function: &nbsp; $A(x) = \frac{1}{1 - x - x^2}$.
         </p>
       </div>
 
       <div>
         <h3 class="subsection-heading">4.3 Companion Matrix Exponentiation Engine (O(k³ log n))</h3>
         <p>
-          Let <code>k = max(S)</code>. We represent the recurrence state as a column vector: <code>v<sub>n</sub> = [a<sub>n</sub>, a<sub>n&minus;1</sub>, &hellip;, a<sub>n&minus;k+1</sub>]<sup>T</sup></code>. The transition is governed by a <code>k &times; k</code> Companion Matrix <code>M</code>:
+          Let $k = \max(S)$. We represent the recurrence state as a column vector: $\mathbf{v}_n = [a_n, a_{n-1}, \dots, a_{n-k+1}]^T$. The transition is governed by a $k \times k$ Companion Matrix $M$:
         </p>
         <div class="formula-normal">
-          v<sub>n</sub> = M &middot; v<sub>n&minus;1</sub> &nbsp;&Longrightarrow;&nbsp; v<sub>n</sub> = M<sup>n</sup> &middot; v<sub>0</sub> = M<sup>n</sup> &middot; [1, 0, &hellip;, 0]<sup>T</sup>
+          $$\mathbf{v}_n = M \cdot \mathbf{v}_{n-1} \implies \mathbf{v}_n = M^n \cdot \mathbf{v}_0 = M^n \cdot [1, \, 0, \, \dots, \, 0]^T$$
         </div>
         <p>
-          Using <strong>Repeated Binary Squaring</strong>, to compute <code>M<sup>1000</sup></code>, the computer evaluates:
-          <code>M<sup>1000</sup> = (M<sup>500</sup>)<sup>2</sup> = ((M<sup>250</sup>)<sup>2</sup>)<sup>2</sup> &hellip;</code> which requires only <strong>14 matrix multiplications</strong> instead of 1,000 sequential loops! Thus, any depth <code>n</code> is solved in <code>O(k³ log n)</code> time.
+          Using <strong>Repeated Binary Squaring</strong>, to compute $M^{1000}$, the computer evaluates: &nbsp;
+          $M^{1000} = (M^{500})^2 = ((M^{250})^2)^2 \dots$ which requires only <strong>14 matrix multiplications</strong> instead of 1,000 sequential loops! Thus, any depth <code>n</code> is solved in $O(k^3 \log n)$ time.
         </p>
       </div>
     </div>
@@ -450,22 +435,22 @@ html_body = f"""<!DOCTYPE html>
           <tbody>
             <tr>
               <td style="padding: 7px 10px;"><strong>OGF Companion Matrix</strong></td>
-              <td style="padding: 7px 10px;">O(k³ &middot; log n)</td>
-              <td style="padding: 7px 10px;">O(k²)</td>
+              <td style="padding: 7px 10px;">$O(k^3 \log n)$</td>
+              <td style="padding: 7px 10px;">$O(k^2)$</td>
               <td style="padding: 7px 10px;">n &gt; 100,000+</td>
               <td style="padding: 7px 10px;"><strong>Production Engine:</strong> Instantaneous BigInt solver for massive depths.</td>
             </tr>
             <tr>
               <td style="padding: 7px 10px;"><strong>Linear Dynamic Prog.</strong></td>
-              <td style="padding: 7px 10px;">O(n &middot; |S|)</td>
-              <td style="padding: 7px 10px;">O(n)</td>
+              <td style="padding: 7px 10px;">$O(n \cdot |S|)$</td>
+              <td style="padding: 7px 10px;">$O(n)$</td>
               <td style="padding: 7px 10px;">n &asymp; 10⁷</td>
               <td style="padding: 7px 10px;"><strong>Verification Baseline:</strong> High-speed iterative validation table.</td>
             </tr>
             <tr>
               <td style="padding: 7px 10px;"><strong>Naive Recursive DFS</strong></td>
-              <td style="padding: 7px 10px;">O(|S|ⁿ)</td>
-              <td style="padding: 7px 10px;">O(n) stack</td>
+              <td style="padding: 7px 10px;">$O(|S|^n)$</td>
+              <td style="padding: 7px 10px;">$O(n)$ stack</td>
               <td style="padding: 7px 10px;">n &asymp; 30</td>
               <td style="padding: 7px 10px;"><strong>Benchmark Target:</strong> Demonstrates exponential explosion.</td>
             </tr>
@@ -479,23 +464,23 @@ html_body = f"""<!DOCTYPE html>
           Below is the TypeScript implementation showing the binary repeated squaring algorithm with arbitrary-precision BigInt arithmetic:
         </p>
 
-        <pre class="code-block">export function countPathsMatrix(n: number, S: number[]): bigint {{
+        <pre class="code-block">export function countPathsMatrix(n: number, S: number[]): bigint {
   if (n === 0) return 1n;
   const dim = Math.max(...S);
   const M = buildCompanionMatrix(S, dim);
   let result = createIdentityMatrix(dim), base = M, exp = n;
 
-  while (exp > 0) {{
+  while (exp > 0) {
     if (exp % 2 === 1) result = multiplyMatrices(result, base, dim);
     exp = Math.floor(exp / 2);
     if (exp > 0) base = multiplyMatrices(base, base, dim);
-  }}
+  }
   return result[0][0];
-}}</pre>
+}</pre>
       </div>
 
       <div class="figure-container" style="margin: 6px 0 0 0;">
-        <img src="{img_matrix}" alt="Matrix Exponentiation vs Tree Recursion" style="max-height: 195px;">
+        <img src="__IMG_MATRIX__" alt="Matrix Exponentiation vs Tree Recursion" style="max-height: 195px;">
         <div class="figure-caption">Figure 2: Visual comparison of (A) Recursive Tree Explosion O(|S|ⁿ) vs (B) Logarithmic Companion Matrix Exponentiation O(k³ log n).</div>
       </div>
     </div>
@@ -520,7 +505,7 @@ html_body = f"""<!DOCTYPE html>
         </p>
 
         <div class="figure-container" style="margin: 6px 0;">
-          <img src="{img_screenshot}" alt="CombinatorX Application Dashboard" style="max-height: 225px;">
+          <img src="__IMG_SCREENSHOT__" alt="CombinatorX Application Dashboard" style="max-height: 225px;">
           <div class="figure-caption">Figure 3: Production interface of CombinatorX running on localhost:3000 showing active parameters (n = 34, S = [1, 2]), instant path count (9,227,465), and latency (&lt; 0.010 ms).</div>
         </div>
       </div>
@@ -537,7 +522,7 @@ html_body = f"""<!DOCTYPE html>
               <th style="padding: 7px 9px;">Depth (n)</th>
               <th style="padding: 7px 9px;">Skip Set (S)</th>
               <th style="padding: 7px 9px;">Architecture Model</th>
-              <th style="padding: 7px 9px;">Valid Topologies (a<sub>n</sub>)</th>
+              <th style="padding: 7px 9px;">Valid Topologies ($a_n$)</th>
               <th style="padding: 7px 9px;">Matrix Time</th>
               <th style="padding: 7px 9px;">Naive DFS Time</th>
             </tr>
@@ -595,9 +580,9 @@ html_body = f"""<!DOCTYPE html>
               <td style="padding: 7px 9px;">n = 1,000</td>
               <td style="padding: 7px 9px;">[1, 2]</td>
               <td style="padding: 7px 9px;">Ultra-Deep Highway</td>
-              <td style="padding: 7px 9px;">7.03 &times; 10<sup>208</sup> (209 digits)</td>
+              <td style="padding: 7px 9px;">$7.03 \times 10^{208}$ (209 digits)</td>
               <td style="padding: 7px 9px;">0.024 ms</td>
-              <td style="padding: 7px 9px;"><em>Impossible (&gt; 10<sup>290</sup> yrs)</em></td>
+              <td style="padding: 7px 9px;"><em>Impossible (&gt; $10^{290}$ yrs)</em></td>
             </tr>
             <tr>
               <td style="padding: 7px 9px;">n = 10,000</td>
@@ -629,7 +614,7 @@ html_body = f"""<!DOCTYPE html>
         </p>
 
         <div class="figure-container" style="margin: 6px 0;">
-          <img src="{img_benchmark}" alt="Benchmark Performance Curve" style="max-height: 250px;">
+          <img src="__IMG_BENCHMARK__" alt="Benchmark Performance Curve" style="max-height: 250px;">
           <div class="figure-caption">Figure 4: Logarithmic execution latency graph. Notice how the exponential DFS curve rockets vertically, while the Companion Matrix engine stays flat near 0.01 ms.</div>
         </div>
       </div>
@@ -640,7 +625,7 @@ html_body = f"""<!DOCTYPE html>
           <li style="margin-bottom: 8px;">
             <strong>The Exponential "Brute-Force Cliff" (n &ge; 28):</strong>
             <p style="margin-bottom: 3px;">
-              For small depths (<code>n &le; 15</code>), naive DFS appears acceptable (under 1 ms). However, between <code>n = 20</code> and <code>n = 32</code>, DFS latency explodes exponentially by approximately 1.618<sup>n</sup>. At depth <code>n = 32</code>, DFS makes over <strong>4.2 billion recursive calls</strong>, causing noticeable browser freezes.
+              For small depths (<code>n &le; 15</code>), naive DFS appears acceptable (under 1 ms). However, between <code>n = 20</code> and <code>n = 32</code>, DFS latency explodes exponentially by approximately $1.618^n$. At depth <code>n = 32</code>, DFS makes over <strong>4.2 billion recursive calls</strong>, causing noticeable browser freezes.
             </p>
           </li>
           <li style="margin-bottom: 8px;">
@@ -652,18 +637,14 @@ html_body = f"""<!DOCTYPE html>
           <li style="margin-bottom: 8px;">
             <strong>Floating-Point Breakdown vs. BigInt Arbitrary Precision:</strong>
             <p style="margin-bottom: 3px;">
-              Standard JavaScript numbers use 64-bit IEEE floats (<code>Number.MAX_SAFE_INTEGER = 9 &times; 10<sup>15</sup></code>). For Fibonacci skip connections, this integer limit is breached at just <code>n = 78</code>. By implementing native <code>BigInt</code> matrices, our engine accurately computes exact values with thousands of digits without rounding or precision drift.
+              Standard JavaScript numbers use 64-bit IEEE floats (<code>Number.MAX_SAFE_INTEGER = 9 &times; 10¹⁵</code>). For Fibonacci skip connections, this integer limit is breached at just <code>n = 78</code>. By implementing native <code>BigInt</code> matrices, our engine accurately computes exact values with thousands of digits without rounding or precision drift.
             </p>
           </li>
           <li style="margin-bottom: 0;">
             <strong>The Asymptotic Growth Multiplier (&rho;):</strong>
             <p style="margin-bottom: 0;">
               The dominant pole of the generating function governs the growth of neural network paths. For standard residual blocks (<code>S = [1, 2]</code>), 
-              <span style="font-family: 'Cambria Math', serif; font-weight: bold;">
-                &rho; = 
-                <span class="fraction" style="font-size: 10.5pt;"><span class="num">1 + &radic;5</span><span class="denom">2</span></span>
-                &asymp; 1.618
-              </span>. 
+              $\rho = \frac{1 + \sqrt{5}}{2} \approx 1.618$. 
               This means that <strong>each additional residual block increases the total path ensemble by ~61.8%</strong>.
             </p>
           </li>
@@ -688,7 +669,7 @@ html_body = f"""<!DOCTYPE html>
           <strong>Theoretical Breakthrough:</strong> We proved that complex neural skip-connection topologies can be modeled as algebraic integer compositions and solved using Ordinary Generating Functions.
         </li>
         <li style="margin-bottom: 6px;">
-          <strong>Computational Scalability:</strong> By replacing brute-force recursive tree search (<code>O(|S|ⁿ)</code>) with companion matrix repeated binary squaring (<code>O(k³ log n)</code>), we turned a problem requiring years of CPU time into an instantaneous <strong>0.02 millisecond</strong> operation.
+          <strong>Computational Scalability:</strong> By replacing brute-force recursive tree search ($O(|S|^n)$) with companion matrix repeated binary squaring ($O(k^3 \log n)$), we turned a problem requiring years of CPU time into an instantaneous <strong>0.02 millisecond</strong> operation.
         </li>
         <li style="margin-bottom: 6px;">
           <strong>Interactive Educational Tool:</strong> The resulting <strong>CombinatorX</strong> web application provides an intuitive visual laboratory where students, engineers, and researchers can interactively inspect skip-connection DAGs, animate signal flow, inspect companion matrices, and run real-time benchmarks.
@@ -733,6 +714,11 @@ html_body = f"""<!DOCTYPE html>
 </html>
 """
 
+html_body = html_body.replace("__IMG_TOPOLOGY__", img_topology)
+html_body = html_body.replace("__IMG_MATRIX__", img_matrix)
+html_body = html_body.replace("__IMG_BENCHMARK__", img_benchmark)
+html_body = html_body.replace("__IMG_SCREENSHOT__", img_screenshot)
+
 html_body_path = os.path.abspath("CombinatorX_Body_Pages.html")
 with open(html_body_path, "w", encoding="utf-8") as f:
     f.write(html_body)
@@ -744,6 +730,7 @@ options.add_argument('--headless')
 options.add_argument('--disable-gpu')
 driver = webdriver.Edge(options=options)
 driver.get(f"file:///{html_body_path}")
+time.sleep(2.5) # Wait for KaTeX to render all equations
 
 pdf_data = driver.execute_cdp_cmd('Page.printToPDF', {
     'printBackground': True,
