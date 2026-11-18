@@ -267,24 +267,21 @@ html_body = r"""<!DOCTYPE html>
         <li><strong>Integer Overflow:</strong> Standard 64-bit IEEE floating-point numbers overflow at depth <code>n = 78</code>, causing precision breakdown.</li>
       </ul>
 
-      <h2 class="section-heading" style="margin-top: 16px;">2. Objectives</h2>
+      <h2 class="section-heading" style="margin-top: 18px;">2. Objectives</h2>
       <p>
-        To solve this computational and mathematical challenge, the project establishes five concrete objectives:
+        To solve this computational and mathematical challenge, the project establishes four concrete objectives:
       </p>
       <ol>
-        <li>
+        <li style="margin-bottom: 7px;">
           <strong>Combinatorial Graph Formulation:</strong> Model neural skip routing as a discrete integer composition problem, defining the homogeneous linear recurrence relation: $a_n = \sum_{s \in S} a_{n - s}$.
         </li>
-        <li>
+        <li style="margin-bottom: 7px;">
           <strong>Ordinary Generating Function (OGF) Derivation:</strong> Express the infinite ensemble of routing topologies as a closed-form rational function $A(x) = \frac{1}{1 - \sum_{s \in S} x^s}$ via geometric algebraic convolution.
         </li>
-        <li>
+        <li style="margin-bottom: 7px;">
           <strong>Logarithmic Matrix Exponentiation Engine:</strong> Construct a canonical $k \times k$ Companion Matrix $M$ (where $k = \max(S)$) and implement repeated binary squaring to calculate paths for any depth $n$ in $O(k^3 \log n)$ time using arbitrary-precision <code>BigInt</code> arithmetic.
         </li>
-        <li>
-          <strong>Interactive Full-Stack Web Application:</strong> Develop <strong>CombinatorX</strong> (Next.js 14, TypeScript, Tailwind CSS) featuring live telemetry cards, architectural presets (ResNet, DenseNet, Transformer streams), and an interactive SVG Directed Acyclic Graph (DAG) visualizer.
-        </li>
-        <li>
+        <li style="margin-bottom: 7px;">
           <strong>Empirical Complexity Benchmarking:</strong> Implement an automated Recharts benchmark suite comparing naive recursive search against the matrix exponentiation engine, providing visual and empirical proof of logarithmic scalability.
         </li>
       </ol>
