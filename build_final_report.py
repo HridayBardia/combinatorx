@@ -17,6 +17,15 @@ im2_path = "C:/Users/HRIDAY/.gemini/antigravity/brain/236c2221-7325-4958-8c68-55
 im1 = Image.open(im1_path).convert("RGB")
 im2 = Image.open(im2_path).convert("RGB")
 
+# Update Date of Submission on Page 1 (Cover)
+draw1 = ImageDraw.Draw(im1)
+draw1.rectangle([288, 729, 508, 760], fill=(255, 255, 255))
+try:
+    date_font = ImageFont.truetype("C:/Windows/Fonts/CENSCBK.TTF", 17)
+except Exception:
+    date_font = ImageFont.truetype("times.ttf", 17)
+draw1.text((295, 740), "17/11/2026", fill=(0, 0, 0), font=date_font)
+
 # Populate page numbers into the Page No. column of Image 2 (Index)
 draw = ImageDraw.Draw(im2)
 row_centers = [215, 244, 272, 301, 330, 359, 389, 419, 449]
